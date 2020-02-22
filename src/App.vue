@@ -219,6 +219,10 @@ ${this.cssKeyframes}
   padding: 60px;
 }
 
+a {
+  color: #000000;
+}
+
 h1, h2, h3 {
   margin: 0;
 }
