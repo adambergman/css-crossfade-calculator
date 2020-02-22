@@ -221,6 +221,9 @@ ${this.cssKeyframes}
 
 a {
   color: #000000;
+  &:hover {
+    color: #226666;
+  }
 }
 
 h1, h2, h3 {
