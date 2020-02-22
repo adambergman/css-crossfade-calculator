@@ -17,21 +17,48 @@
         <div class="form-item">
           <label for="duration">Duration of image display</label>
           <div class="input">
-            <input v-model.number="durationInput" name="duration" id="duration" type="number" />
+            <input
+              v-model.number="durationInput"
+              name="duration"
+              id="duration"
+              type="number"
+              @blur="checkDurationRange"
+            />
             seconds
+            <span v-if="durationOOR" class="oor">
+              Out of range, using {{ duration }} instead
+            </span>
           </div>
         </div>
         <div class="form-item">
           <label for="crossfade">Cross fade duration</label>
           <div class="input">
-            <input v-model.number="crossfadeInput" type="number" name="crossfade" id="crossfade" />
+            <input
+              v-model.number="crossfadeInput"
+              type="number"
+              name="crossfade"
+              id="crossfade"
+              @blur="checkCrossfadeRange"
+            />
             seconds
+            <span v-if="crossfadeOOR" class="oor">
+              Out of range, using {{ crossfade }} instead
+            </span>
           </div>
         </div>
         <div class="form-item">
           <label for="total">Total Images</label>
           <div class="input">
-            <input v-model.number="totalImagesInput" name="total" id="total" type="number" />
+            <input
+              v-model.number="totalImagesInput"
+              name="total"
+              id="total"
+              type="number"
+              @blur="checkTotalRange"
+            />
+            <span v-if="totalImagesOOR" class="oor">
+              Out of range, using {{ totalImages }} instead
+            </span>
           </div>
         </div>
       </section>
@@ -95,27 +122,37 @@ export default {
     };
   },
   computed: {
+    durationOOR() {
+      return Number.isNaN(this.durationInput) || this.durationInput < 0.1;
+    },
     duration() {
-      if (Number.isNaN(this.durationInput) || this.durationInput < 0.1) {
+      if (this.durationOOR) {
         return 1;
       }
       return this.durationInput;
     },
+    crossfadeOOR() {
+      return Number.isNaN(this.crossfadeInput) || this.crossfadeInput < 0.1;
+    },
     crossfade() {
-      if (Number.isNaN(this.crossfadeInput) || this.crossfadeInput < 0.1) {
+      if (this.crossfadeOOR) {
         return 1;
       }
       return this.crossfadeInput;
     },
+    totalImagesOOR() {
+      return Number.isNaN(this.totalImagesInput) || this.totalImagesInput < 1;
+    },
     totalImages() {
-      if (Number.isNaN(this.totalImagesInput) || this.totalImagesInput < 1) {
+      if (this.totalImagesOOR) {
         return 1;
       }
       return this.totalImagesInput;
     },
     // total animation-duration (t) = (a + b) * n
     totalDuration() {
-      return (this.duration + this.crossfade) * this.totalImages;
+      const calculation = (this.duration + this.crossfade) * this.totalImages;
+      return Math.round(calculation * 10) / 10;
     },
     // animation delay t / n OR a + b
     animationDelay() {
@@ -233,6 +270,21 @@ ${this.cssKeyframes}
       const calculation = this.totalDuration - i * (this.duration + this.crossfade);
       return Math.round(calculation * 10) / 10;
     },
+    checkTotalRange() {
+      if (this.totalImagesOOR) {
+        this.totalImagesInput = this.totalImages;
+      }
+    },
+    checkDurationRange() {
+      if (this.durationOOR) {
+        this.durationInput = this.duration;
+      }
+    },
+    checkCrossfadeRange() {
+      if (this.crossfadeOOR) {
+        this.crossfadeInput = this.crossfade;
+      }
+    },
   },
 };
 </script>
@@ -258,6 +310,11 @@ a {
 
 h1, h2, h3 {
   margin: 0;
+}
+
+.oor {
+  color: #990000;
+  font-size: 12px;
 }
 
 .header {
