@@ -1,25 +1,23 @@
 # css-crossfade-calculator
-> Quick and dirty form that generates styles for cross fading multiple images in pure CSS (or SCSS).
 
 Visit https://adambergman.github.io/css-crossfade-calculator for the working calculator
 
 ## About
 
-This form generates the proper CSS (or SCSS) animation timing styles for
-crossfading multiple images on a loop with pure CSS. 
+This form generates the proper CSS (or SCSS) animation timing styles for crossfading any number of images with pure CSS. The animation will loop infinitely. 
 
-## Math
-The idea is that you create a single animation that fades opacity and stagger each animation
-so that only one image is visible at a time (except while crossfading).
+## Approach and Algorithm
 
-The following algorithm is used to determine animation-delay, keyframe percentages for the animations. There will always be 5 key frames, with the first always being 0% and the last always being 100%.
+The approach is to create a single animation that fades opacity and stagger each animation on images elements so that only one image is visible at a time with a crossfade between images.
+
+The following algorithm is used to determine animation-delay and keyframe percentages for the animations. There will always be 5 key frames, with the first always being `0%` and the last always being `100%`.
 
 `n` = total number of images  
 `a` = presentation time for a single image (seconds)  
 `b` = duration of crossfade between images (seconds)  
 `t` = total animation duration `t = (a + b) * n`  
 
-animation-delay (for each image) = `t - i * (a + b)` where i is the index of each image (1 through `n`)
+animation-delay (for each image) = `t - i * (a + b)` where `i` is the index of each image (`1` through `n`)
 
 Keyframe #1 – `0%`  
 Keyframe #2 - `a / t * 100%`  
