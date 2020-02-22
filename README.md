@@ -3,6 +3,8 @@
 
 Visit https://adambergman.github.io/css-crossfade-calculator/ for the calculator.
 
+Math courtesy of http://css3.bradshawenterprises.com/cfimg/
+
 ## Project setup
 ```
 yarn install
