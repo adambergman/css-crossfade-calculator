@@ -17,21 +17,21 @@
         <div class="form-item">
           <label for="duration">Duration of image display</label>
           <div class="input">
-            <input v-model.number="duration" name="duration" id="duration" type="number" />
+            <input v-model.number="durationInput" name="duration" id="duration" type="number" />
             seconds
           </div>
         </div>
         <div class="form-item">
           <label for="crossfade">Cross fade duration</label>
           <div class="input">
-            <input v-model.number="crossfade" type="number" name="crossfade" id="crossfade" />
+            <input v-model.number="crossfadeInput" type="number" name="crossfade" id="crossfade" />
             seconds
           </div>
         </div>
         <div class="form-item">
           <label for="total">Total Images</label>
           <div class="input">
-            <input v-model.number="totalImages" name="total" id="total" type="number" />
+            <input v-model.number="totalImagesInput" name="total" id="total" type="number" />
           </div>
         </div>
       </section>
@@ -89,12 +89,30 @@ export default {
   name: 'App',
   data() {
     return {
-      duration: 5, // presentation time for one image (a)
-      crossfade: 2, // duration for cross fading (b)
-      totalImages: 2, // total number of images (n)
+      durationInput: 5, // presentation time for one image (a)
+      crossfadeInput: 2, // duration for cross fading (b)
+      totalImagesInput: 2, // total number of images (n)
     };
   },
   computed: {
+    duration() {
+      if (Number.isNaN(this.durationInput) || this.durationInput < 0.1) {
+        return 1;
+      }
+      return this.durationInput;
+    },
+    crossfade() {
+      if (Number.isNaN(this.crossfadeInput) || this.crossfadeInput < 0.1) {
+        return 1;
+      }
+      return this.crossfadeInput;
+    },
+    totalImages() {
+      if (Number.isNaN(this.totalImagesInput) || this.totalImagesInput < 1) {
+        return 1;
+      }
+      return this.totalImagesInput;
+    },
     // total animation-duration (t) = (a + b) * n
     totalDuration() {
       return (this.duration + this.crossfade) * this.totalImages;
@@ -200,26 +218,12 @@ ${this.cssKeyframes}
     },
   },
   watch: {
-    duration: {
-      handler(newValue, oldValue) {
-        if (newValue < 0.1) {
-          this.duration = oldValue;
-        }
-      },
-    },
-    crossfade: {
-      handler(newValue, oldValue) {
-        if (newValue < 0.1) {
-          this.crossfade = oldValue;
-        }
-      },
-    },
-    totalImages: {
+    totalImagesInput: {
       handler(newValue, oldValue) {
         if (newValue < 1) {
-          this.totalImages = oldValue;
+          this.totalImagesInput = oldValue;
         } else {
-          this.totalImages = Math.ceil(newValue);
+          this.totalImagesInput = Math.ceil(newValue);
         }
       },
     },
