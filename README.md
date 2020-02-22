@@ -1,16 +1,16 @@
 # css-crossfade-calculator
 
-Visit https://adambergman.github.io/css-crossfade-calculator for the working calculator
+Visit https://adambergman.github.io/css-crossfade-calculator to use the calculator
 
 ## About
 
-This form generates the proper CSS (or SCSS) animation timing styles for crossfading any number of images with pure CSS. The animation will loop infinitely. 
+This form generates the proper CSS (or SCSS) animation timing styles for crossfading any number of images with pure CSS. The animation will loop infinitely.
 
 ## Approach and Algorithm
 
-The approach is to create a single animation that fades opacity and stagger each animation on images elements so that only one image is visible at a time with a crossfade between images.
+The approach is to create a single animation that fades `opacity` and then stagger the animation on each image element with `animation-delay` so that only one image is visible at a time with a crossfade between images.
 
-The following algorithm is used to determine animation-delay and keyframe percentages for the animations. There will always be 5 key frames, with the first always being `0%` and the last always being `100%`.
+The following algorithm is used to determine `animation-delay` and keyframe percentages for the fading animation. There will always be 5 key frames, with the first always being `0%` and the last always being `100%`.
 
 `n` = total number of images  
 `a` = presentation time for a single image (seconds)  
@@ -21,7 +21,7 @@ animation-delay (for each image) = `t - i * (a + b)` where `i` is the index of e
 
 Keyframe #1 – `0%`  
 Keyframe #2 - `a / t * 100%`  
-Keyframe #3 - `(a + b) / t * 100%` OR `1 / n * 100%`  
+Keyframe #3 - `(a + b) / t * 100%`  
 Keyframe #4 - `100% - (b / t * 100%)`  
 Keyframe #5 - `100%`  
 
@@ -29,7 +29,7 @@ This approach and algorithm is courtesy of http://css3.bradshawenterprises.com/c
 
 ## Example Results
 
-Below are two examples with output from the form tool available at https://adambergman.github.io/css-crossfade-calculator
+Below are two examples with output from calculator at https://adambergman.github.io/css-crossfade-calculator
 
 ### 2 Images
 > Crossfade 2 images displaying each for 5 seconds with a 2 second crossfade.
