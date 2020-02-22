@@ -1,5 +1,6 @@
 # css-crossfade-calculator
 > Quick and dirty form that generates styles for cross fading multiple images in pure CSS (or SCSS).
+
 Visit https://adambergman.github.io/css-crossfade-calculator/ for the calculator.
 
 ## Project setup
