@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "pages": "vue-cli-service build && git add dist && git commit -m 'Dist update' && git subtree push --prefix dist origin gh-pages",
+    "pages": "vue-cli-service build && git add dist && git commit -m 'Pages update' && git subtree push --prefix dist origin gh-pages",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
