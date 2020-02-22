@@ -1,51 +1,74 @@
 <template>
   <div id="app">
-    <h1>CSS Image Crossfade Calculator</h1>
-    <h3>
-      <a href="https://github.com/adambergman/css-crossfade-calculator">
-        View on Github
-      </a>
-    </h3>
-    <div class="form">
-      <div>
-        Duration of image display (seconds): <input type="number" v-model.number="duration" />
+    <section class="header">
+      <h1>CSS Crossfade Calculator</h1>
+      <div class="github-link">
+        <a href="https://github.com/adambergman/css-crossfade-calculator">
+          View on Github
+        </a>
+        <a href="https://github.com/adambergman/css-crossfade-calculator">
+          <img src="./assets/github-mark.png" class="github-mark">
+        </a>
       </div>
-      <div>
-        Cross fade duration (seconds): <input type="number" v-model.number="crossfade" />
+    </section>
+    <div class="form-container">
+      <section class="form">
+        <h2>SETTINGS</h2>
+        <div class="form-item">
+          <label for="duration">Duration of image display</label>
+          <div class="input">
+            <input v-model.number="duration" name="duration" id="duration" type="number" />
+            seconds
+          </div>
+        </div>
+        <div class="form-item">
+          <label for="crossfade">Cross fade duration</label>
+          <div class="input">
+            <input v-model.number="crossfade" type="number" name="crossfade" id="crossfade" />
+            seconds
+          </div>
+        </div>
+        <div class="form-item">
+          <label for="total">Total Images</label>
+          <div class="input">
+            <input v-model.number="totalImages" name="total" id="total" type="number" />
+          </div>
+        </div>
+      </section>
+      <section class="preview">
+        <h2>PREVIEW</h2>
+        <div class="preview-images" v-html="htmlString" />
+        <v-style>{{ cssString }}</v-style>
+      </section>
+    </div>
+    <section class="code">
+      <div class="code-html">
+        <h2>HTML</h2>
+        <highlight-code lang="xml">
+          {{ htmlString }}
+        </highlight-code>
       </div>
-      <div>
-        Total Images: <input type="number" v-model.number="totalImages" />
+      <div class="styles">
+        <div class="code-css">
+          <h2>CSS</h2>
+          <highlight-code lang="css">
+            {{ cssString }}
+          </highlight-code>
+        </div>
+        <div class="code-scss">
+          <h2>SCSS</h2>
+          <highlight-code lang="scss">
+            {{ scssString }}
+          </highlight-code>
+        </div>
       </div>
-    </div>
-    <div>
-      <h2>PREVIEW</h2>
-      <div class="preview" v-html="htmlString" />
-      <v-style>{{ cssString }}</v-style>
-    </div>
-    <div>
-      <h2>HTML</h2>
-      <highlight-code lang="xml">
-        {{ htmlString }}
-      </highlight-code>
-    </div>
-    <div>
-      <h2>SCSS</h2>
-      <highlight-code lang="scss">
-        {{ scssString }}
-      </highlight-code>
-    </div>
-    <div>
-      <h2>CSS</h2>
-      <highlight-code lang="css">
-        {{ cssString }}
-      </highlight-code>
-    </div>
-    <div style="margin-top: 40px;">
-      Math courtesy of
+    </section>
+    <section class="credits" style="margin-top: 40px;">
+      Approach and Algorithm courtesy of
       <a href="http://css3.bradshawenterprises.com/cfimg/" target="_blank">
         http://css3.bradshawenterprises.com/cfimg/
       </a>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -101,7 +124,7 @@ export default {
     htmlImages() {
       let images = '';
       for (let i = 1; i <= this.totalImages; i += 1) {
-        images += `  <img src="//placehold.it/250x175?text=Image%20${i}">\n`;
+        images += `  <img src="//placehold.it/250x200?text=Image%20${i}">\n`;
       }
       return images;
     },
@@ -216,11 +239,14 @@ ${this.cssKeyframes}
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  padding: 60px;
+  padding: 10px 60px 60px;
+  @media(max-width: 767px) {
+    padding: 10px 30px 60px;
+  }
 }
 
 a {
-  color: #000000;
+  color: #2c3e50;
   &:hover {
     color: #226666;
   }
@@ -230,16 +256,125 @@ h1, h2, h3 {
   margin: 0;
 }
 
-h2 {
-  margin-top: 25px;
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #dadada;
+  .github-link {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 16px;
+    .github-mark {
+      width: 20px;
+      margin-left: 5px;
+      margin-top: 5px;
+      border: none;
+    }
+  }
+  @media(max-width: 650px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
-.form {
-  margin-top: 25px;
+.form-container {
+  padding: 20px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #dadada;
+  .preview {
+    width: 50%;
+  }
+  .form {
+    width: 50%;
+    padding-right: 40px;
+    .form-item {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #dadada;
+      label {
+        font-size: 14px;
+        color: rgba(44, 62, 80, 0.7);
+        padding-bottom: 5px;
+      }
+      .input {
+        font-size: 16px;
+        input {
+          font-size: 18px;
+          padding: 5px;
+          max-width: 50px;
+          text-align: center;
+        }
+      }
+      @media(min-width: 651px) {
+        &:last-child {
+          border-bottom: none;
+          padding-bottom: 0px;
+          margin-bottom: 0px;
+        }
+      }
+    }
+  }
+  .preview-images {
+    min-width: 250px;
+    min-height: 200px;
+  }
+  @media(max-width: 650px) {
+    flex-direction: column;
+    align-items: flex-start;
+    .form, .preview {
+      width: 100%;
+      padding-bottom: 20px;
+      padding-right: 0px;
+    }
+  }
 }
 
-.preview {
-  min-width: 250px;
-  min-height: 175px;
+.code {
+  .code-html {
+    padding: 20px 0px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #dadada;
+  }
+  .styles {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px 0px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #dadada;
+    .code-css, .code-scss {
+      width: 50%;
+    }
+    .code-css {
+      margin-right: 10px;
+    }
+    .code-scss {
+      margin-left: 10px;
+    }
+    @media(max-width: 650px) {
+      flex-direction: column;
+      align-items: flex-start;
+      .code-css, .code-scss {
+        width: 100%;
+        margin-left: 0px;
+        margin-right: 0px;
+      }
+    }
+  }
 }
 </style>
