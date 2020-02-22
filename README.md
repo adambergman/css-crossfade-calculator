@@ -14,18 +14,18 @@ so that only one image is visible at a time (except while crossfading).
 
 The following algorithm is used to determine animation-delay, keyframe percentages for the animations. There will always be 5 key frames, with the first always being 0% and the last always being 100%.
 
-`n` = total number of images
-`a` = presentation time for a single image (seconds)
-`b` = duration of crossfade between images (seconds)
-`t` = total animation duration `t = (a + b) * n`
+`n` = total number of images  
+`a` = presentation time for a single image (seconds)  
+`b` = duration of crossfade between images (seconds)  
+`t` = total animation duration `t = (a + b) * n`  
 
 animation-delay (for each image) = `t - i * (a + b)` where i is the index of each image (1 through `n`)
 
-Keyframe #1 – `0%`
-Keyframe #2 - `a / t * 100%`
-Keyframe #3 - `(a + b) / t * 100%` OR `1 / n * 100%`
-Keyframe #4 - `100% - (b / t * 100%)`
-Keyframe #5 - `100%`
+Keyframe #1 – `0%`  
+Keyframe #2 - `a / t * 100%`  
+Keyframe #3 - `(a + b) / t * 100%` OR `1 / n * 100%`  
+Keyframe #4 - `100% - (b / t * 100%)`  
+Keyframe #5 - `100%`  
 
 This approach and algorithm is courtesy of http://css3.bradshawenterprises.com/cfimg/
 
