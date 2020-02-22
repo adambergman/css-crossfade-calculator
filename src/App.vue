@@ -1,13 +1,21 @@
 <template>
   <div id="app">
-    <div>
-      Duration of image display (seconds): <input type="number" v-model.number="duration" />
-    </div>
-    <div>
-      Cross fade duration (seconds): <input type="number" v-model.number="crossfade" />
-    </div>
-    <div>
-      Total Images: <input type="number" v-model.number="totalImages" />
+    <h1>CSS Image Crossfade Calculator</h1>
+    <h3>
+      <a href="https://github.com/adambergman/css-crossfade-calculator">
+        View on Github
+      </a>
+    </h3>
+    <div class="form">
+      <div>
+        Duration of image display (seconds): <input type="number" v-model.number="duration" />
+      </div>
+      <div>
+        Cross fade duration (seconds): <input type="number" v-model.number="crossfade" />
+      </div>
+      <div>
+        Total Images: <input type="number" v-model.number="totalImages" />
+      </div>
     </div>
     <div>
       <h2>PREVIEW</h2>
@@ -32,10 +40,17 @@
         {{ cssString }}
       </highlight-code>
     </div>
+    <div style="margin-top: 40px;">
+      Math courtesy of
+      <a href="http://css3.bradshawenterprises.com/cfimg/" target="_blank">
+        http://css3.bradshawenterprises.com/cfimg/
+      </a>
+    </div>
   </div>
 </template>
 
 <script>
+// From: http://css3.bradshawenterprises.com/cfimg/
 // For "n" images You must define:
 // a=presentation time for one image
 // b=duration for cross fading
@@ -202,6 +217,18 @@ ${this.cssKeyframes}
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   padding: 60px;
+}
+
+h1, h2, h3 {
+  margin: 0;
+}
+
+h2 {
+  margin-top: 25px;
+}
+
+.form {
+  margin-top: 25px;
 }
 
 .preview {
